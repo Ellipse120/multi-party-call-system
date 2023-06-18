@@ -1,0 +1,10 @@
+
+:root {
+  font-family: "微软雅黑", "Inter", sans-serif;
+}
+
+@supports (font-variation-settings: normal) {
+  :root {
+    font-family: "Inter var", sans-serif;
+  }
+}

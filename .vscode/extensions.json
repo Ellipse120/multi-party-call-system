@@ -1,0 +1,26 @@
+{
+  "recommendations": [
+    "vue.volar",
+    "vue.vscode-typescript-vue-plugin",
+    "nuxt.mdc",
+    "bradlc.vscode-tailwindcss",
+    "nuxtr.nuxtr-vscode",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "mrmlnc.vscode-autoprefixer",
+    "aaron-bond.better-comments",
+    "usernamehw.errorlens",
+    "dbaeumer.vscode-eslint",
+    "file-icons.file-icons",
+    "wix.vscode-import-cost",
+    "aykutsarac.jsoncrack-vscode",
+    "ritwickdey.liveserver",
+    "pkief.material-icon-theme",
+    "alefragnani.project-manager",
+    "antfu.unocss",
+    "voorjaar.windicss-intellisense",
+    "christian-kohler.path-intellisense",
+    "christian-kohler.npm-intellisense",
+    "tyriar.lorem-ipsum"
+  ]
+}
