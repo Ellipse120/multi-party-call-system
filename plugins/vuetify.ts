@@ -1,5 +1,7 @@
 import { createVuetify } from "vuetify";
 import { zhHans } from "vuetify/locale";
+import { aliases, mdi } from "vuetify/iconsets/mdi";
+import "@mdi/font/css/materialdesignicons.css";
 
 export default defineNuxtPlugin((app) => {
   const vuetify = createVuetify({
@@ -26,10 +28,10 @@ export default defineNuxtPlugin((app) => {
       //   },
     },
     icons: {
-      defaultSet: "custom",
+      defaultSet: "mdi",
       aliases,
       sets: {
-        custom,
+        mdi,
       },
     },
   });
