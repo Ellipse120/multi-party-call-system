@@ -8,6 +8,8 @@ definePageMeta({
 const { token } = useAuth();
 
 const currentYear = ref(useDateFormat(new Date(), "YYYY"));
+
+const { data } = useRequest("/api/mock");
 </script>
 
 <template>
@@ -16,5 +18,9 @@ const currentYear = ref(useDateFormat(new Date(), "YYYY"));
     <div>{{ token }}</div>
 
     <v-btn color="primary" @click="navigateTo('/meeting')">Meeting</v-btn>
+
+    <div class="text-center text-white text-3xl bg-indigo-500 rounded my-4 p-8">
+      {{ data }}
+    </div>
   </div>
 </template>

@@ -31,6 +31,7 @@
     "@tiptap/starter-kit": "^2.0.3",
     "@tiptap/vue-3": "^2.0.3",
     "@vee-validate/nuxt": "^4.9.6",
+    "defu": "^6.1.2",
     "lodash": "^4.17.21",
     "vite-plugin-vuetify": "^1.0.2"
   }

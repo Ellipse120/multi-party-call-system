@@ -1,3 +1,3 @@
 export default defineEventHandler((event) => {
-  return 'Hello mock'
-})
+  return "Hello, response from mock server";
+});

@@ -12,7 +12,7 @@ export const useAuth = () => {
   };
 
   const doLogout = () => {
-    setToken(null);
+    cookies.remove("token");
     navigateTo("/login");
   };
 
