@@ -11,41 +11,30 @@ const { doLogout } = useAuth();
 </script>
 
 <template>
-  <v-app-bar :elevation="4" color="primary">
-    <template v-slot:prepend>
-      <v-list-item
-        :prepend-avatar="logo"
-        :title="userInfo.name"
-        :subtitle="`ID: ${userInfo.id}`"
-      >
-      </v-list-item>
-    </template>
+  <q-toolbar class="bg-primary text-white">
+    <q-item clickable v-ripple>
+      <q-item-section avatar>
+        <q-avatar>
+          <img :src="logo" />
+        </q-avatar>
+      </q-item-section>
 
-    <template v-slot:append>
-      <v-btn icon="mdi-minus"></v-btn>
+      <q-item-section>
+        <q-item-label lines="1">{{ userInfo.name }}</q-item-label>
+        <q-item-label caption lines="2">
+          <span class="text-white text-weight-bold">ID: {{ userInfo.id }}</span>
+        </q-item-label>
+      </q-item-section>
+    </q-item>
 
-      <v-btn icon="mdi-window-maximize"></v-btn>
+    <q-space />
 
-      <v-btn icon="mdi-close-circle"></v-btn>
+    <q-btn flat icon="mdi-minus"></q-btn>
 
-      <v-btn icon="mdi-logout" @click="doLogout()"></v-btn>
-    </template>
-  </v-app-bar>
+    <q-btn flat icon="mdi-window-maximize"></q-btn>
+
+    <q-btn flat icon="mdi-close-circle"></q-btn>
+
+    <q-btn flat icon="mdi-logout" @click="doLogout()"></q-btn>
+  </q-toolbar>
 </template>
-
-<style>
-body {
-  font-family: 微软雅黑, Urbanist, sans-serif;
-  @apply bg-white dark:bg-gray-900;
-}
-
-.navbar-active .hamburger div:first-child {
-  @apply rotate-45 translate-y-1.5;
-}
-.navbar-active .hamburger div:last-child {
-  @apply -rotate-45 -translate-y-1;
-}
-.navbar-active div:first-child div:first-child div:last-child {
-  @apply block lg:flex;
-}
-</style>

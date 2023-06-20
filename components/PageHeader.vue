@@ -7,36 +7,21 @@ const { doLogout } = useAuth();
 </script>
 
 <template>
-  <v-app-bar :title="corporation" :elevation="4">
-    <template v-slot:prepend>
-      <v-img class="w-16" :src="logo"></v-img>
-    </template>
+  <q-header elevated class="bg-primary text-white">
+    <q-toolbar class="shadow-2">
+      <q-avatar>
+        <img :src="logo" />
+      </q-avatar>
 
-    <template v-slot:append>
-      <v-btn icon="mdi-minus"></v-btn>
+      <q-toolbar-title>{{ corporation }}</q-toolbar-title>
 
-      <v-btn icon="mdi-window-maximize"></v-btn>
+      <q-btn icon="mdi-minus" flat></q-btn>
 
-      <v-btn icon="mdi-close-circle"></v-btn>
+      <q-btn icon="mdi-window-maximize" flat></q-btn>
 
-      <v-btn icon="mdi-logout" @click="doLogout()"></v-btn>
-    </template>
-  </v-app-bar>
+      <q-btn icon="mdi-close-circle" flat></q-btn>
+
+      <q-btn icon="mdi-logout" flat @click="doLogout()"></q-btn>
+    </q-toolbar>
+  </q-header>
 </template>
-
-<style>
-body {
-  font-family: 微软雅黑, Urbanist, sans-serif;
-  @apply bg-white dark:bg-gray-900;
-}
-
-.navbar-active .hamburger div:first-child {
-  @apply rotate-45 translate-y-1.5;
-}
-.navbar-active .hamburger div:last-child {
-  @apply -rotate-45 -translate-y-1;
-}
-.navbar-active div:first-child div:first-child div:last-child {
-  @apply block lg:flex;
-}
-</style>

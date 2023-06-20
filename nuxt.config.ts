@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxt/image",
     "@vee-validate/nuxt",
+    "nuxt-quasar-ui",
     async (options, nuxt) => {
       nuxt.hooks.hook("vite:extendConfig", (config) =>
         // @ts-ignore
@@ -18,7 +19,6 @@ export default defineNuxtConfig({
   css: [
     "primevue/resources/themes/lara-light-blue/theme.css",
     "primevue/resources/primevue.css",
-    "vuetify/styles",
     "@unocss/reset/tailwind.css",
     "@/assets/main.css",
   ],
@@ -33,6 +33,10 @@ export default defineNuxtConfig({
 
   build: {
     transpile: ["primevue", "vuetify"],
+  },
+
+  quasar: {
+    lang: "zh-CN",
   },
 
   veeValidate: {

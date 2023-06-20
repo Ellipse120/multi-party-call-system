@@ -17,10 +17,12 @@ const { data } = useRequest("/api/mock");
     index , {{ currentYear }}
     <div>{{ token }}</div>
 
-    <v-btn color="primary" @click="navigateTo('/meeting')">Meeting</v-btn>
+    <q-btn color="primary" @click="navigateTo('/meeting')">Meeting</q-btn>
 
     <div class="text-center text-white text-3xl bg-indigo-500 rounded my-4 p-8">
       {{ data }}
     </div>
+
+    <RichTextEditor />
   </div>
 </template>

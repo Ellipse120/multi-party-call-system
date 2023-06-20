@@ -1,68 +1,68 @@
 <script setup>
-import { useField, useForm } from "vee-validate";
 import logoUrl from "@/assets/imgs/logo.png";
 
-const { handleSubmit } = useForm();
-const [bool1, toggle1] = useToggle();
-const { ruleRequired, rulePassword } = useFormRules();
-
-const name = useField("name");
-const email = useField("email");
-const password = useField("password");
+const [isPwd, toggleIsPwd] = useToggle();
 const corporation = useAppConfig().corporation;
 const appName = useAppConfig().name;
 
+const userName = ref(null);
+const passwd = ref(null);
+
 const { setToken } = useAuth();
 
-const doLogin = handleSubmit((values) => {
+const doLogin = () => {
   setToken("xxxxx");
   navigateTo("/");
-  console.log(values);
-});
+  console.log({
+    userName: userName.value,
+    passwd: passwd.value,
+  });
+};
 </script>
 
 <template>
   <div class="w-120">
-    <v-sheet elevation="4" class="p-4">
-      <v-container fluid>
-        <div class="flex flex-col items-center justify-center">
-          <v-img class="w-20" :src="logoUrl"></v-img>
-          <div class="my-4 text-2xl">{{ appName }}</div>
-        </div>
+    <q-card elevation="4" class="p-4">
+      <div class="flex flex-col items-center justify-center">
+        <q-img class="w-24" :src="logoUrl" />
+        <div class="my-4 text-2xl">{{ appName }}</div>
+      </div>
 
-        <v-form>
-          <v-text-field
-            v-model="name.value.value"
-            :counter="10"
-            clearable
-            :rules="[ruleRequired]"
-            prepend-inner-icon="mdi-account-outline"
-            label="账号"
-            class="my-4"
-          ></v-text-field>
+      <q-form>
+        <q-input v-model="userName" class="my-4" label="用户名">
+          <template v-slot:prepend>
+            <q-icon name="person" />
+          </template>
+        </q-input>
 
-          <v-text-field
-            v-model="password.value.value"
-            prepend-inner-icon="mdi-lock-outline"
-            :append-inner-icon="bool1 ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[ruleRequired, rulePassword]"
-            :type="bool1 ? 'text' : 'password'"
-            label="密码"
-            hint="密码至少8位, 需要包含数字、大写字母、小写字母、特殊符号"
-            persistent-hint
-            counter
-            clearable
-            @click:append="toggle1()"
-          ></v-text-field>
-        </v-form>
-      </v-container>
+        <q-input
+          v-model="passwd"
+          label="密码"
+          :type="!isPwd ? 'password' : 'text'"
+          hint="密码至少8位, 需要包含数字、大写字母、小写字母、特殊符号"
+        >
+          <template v-slot:prepend>
+            <q-icon name="key" />
+          </template>
+          <template v-slot:append>
+            <q-icon
+              :name="isPwd ? 'visibility_off' : 'visibility'"
+              class="cursor-pointer"
+              @click="toggleIsPwd()"
+            />
+          </template>
+        </q-input>
+      </q-form>
 
-      <div class="text-center m-4">
-        <v-btn color="primary" variant="flat" block @click="doLogin()">
-          登录
-        </v-btn>
+      <div class="text-center my-4">
+        <q-btn
+          color="primary"
+          class="full-width"
+          label="登录"
+          @click="doLogin()"
+        />
         <div class="mt-4">&#169;{{ corporation }}</div>
       </div>
-    </v-sheet>
+    </q-card>
   </div>
 </template>
