@@ -1,20 +1,11 @@
-import vuetify from "vite-plugin-vuetify";
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     "@unocss/nuxt",
     "@vueuse/nuxt",
-    "@nuxt/image",
     "@vee-validate/nuxt",
     "nuxt-quasar-ui",
-    async (options, nuxt) => {
-      nuxt.hooks.hook("vite:extendConfig", (config) =>
-        // @ts-ignore
-        config.plugins.push(vuetify())
-      );
-    },
   ],
   css: [
     "primevue/resources/themes/lara-light-blue/theme.css",
@@ -29,14 +20,15 @@ export default defineNuxtConfig({
     },
   },
 
-  plugins: ["~/plugins/vuetify.ts", "~/plugins/primevue.ts"],
+  plugins: ["~/plugins/primevue.ts"],
 
   build: {
-    transpile: ["primevue", "vuetify"],
+    transpile: ["primevue"],
   },
 
   quasar: {
     lang: "zh-CN",
+    iconSet: "mdi-v7",
   },
 
   veeValidate: {

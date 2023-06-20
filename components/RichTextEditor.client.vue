@@ -143,81 +143,61 @@ onBeforeUnmount(() => {
         >
         </q-btn>
 
-        <v-tooltip location="top" text="代码块">
-          <template v-slot:activator="{ props }">
-            <q-btn
-              v-bind="props"
-              :class="{ 'is-active': editor.isActive('codeBlock') }"
-              icon="mdi-code-not-equal-variant"
-              @click="editor.chain().focus().toggleCodeBlock().run()"
-            >
-            </q-btn>
-          </template>
-        </v-tooltip>
+        <q-btn
+          v-bind="props"
+          :class="{ 'is-active': editor.isActive('codeBlock') }"
+          icon="mdi-code-not-equal-variant"
+          @click="editor.chain().focus().toggleCodeBlock().run()"
+        >
+          <q-tooltip> 代码块 </q-tooltip>
+        </q-btn>
 
-        <v-tooltip location="top" text="引用">
-          <template v-slot:activator="{ props }">
-            <q-btn
-              v-bind="props"
-              :class="{ 'is-active': editor.isActive('blockquote') }"
-              icon="mdi-card-text-outline"
-              @click="editor.chain().focus().toggleBlockquote().run()"
-            >
-            </q-btn>
-          </template>
-        </v-tooltip>
+        <q-btn
+          v-bind="props"
+          :class="{ 'is-active': editor.isActive('blockquote') }"
+          icon="mdi-card-text-outline"
+          @click="editor.chain().focus().toggleBlockquote().run()"
+        >
+          <q-tooltip>引用</q-tooltip>
+        </q-btn>
 
-        <v-tooltip location="top" text="分隔符">
-          <template v-slot:activator="{ props }">
-            <q-btn
-              v-bind="props"
-              icon="mdi-view-day-outline"
-              @click="editor.chain().focus().setHorizontalRule().run()"
-            >
-            </q-btn>
-          </template>
-        </v-tooltip>
+        <q-btn
+          v-bind="props"
+          icon="mdi-view-day-outline"
+          @click="editor.chain().focus().setHorizontalRule().run()"
+        >
+          <q-tooltip>分隔符 </q-tooltip>
+        </q-btn>
 
-        <v-tooltip location="top" text="换页">
-          <template v-slot:activator="{ props }">
-            <q-btn
-              v-bind="props"
-              icon="mdi-format-page-break"
-              @click="editor.chain().focus().setHardBreak().run()"
-            >
-            </q-btn>
-          </template>
-        </v-tooltip>
+        <q-btn
+          v-bind="props"
+          icon="mdi-format-page-break"
+          @click="editor.chain().focus().setHardBreak().run()"
+        >
+          <q-tooltip>换页</q-tooltip>
+        </q-btn>
 
-        <v-tooltip location="top" text="上传图片">
-          <template v-slot:activator="{ props }">
-            <q-btn v-bind="props" icon="mdi-image" @click="addImage"></q-btn>
-          </template>
-        </v-tooltip>
+        <q-btn v-bind="props" icon="mdi-image" @click="addImage">
+          <q-tooltip>上传图片</q-tooltip>
+        </q-btn>
 
-        <v-tooltip location="top" text="撤销">
-          <template v-slot:activator="{ props }">
-            <q-btn
-              v-bind="props"
-              icon="mdi-undo"
-              :disabled="!editor.can().chain().focus().undo().run()"
-              @click="editor.chain().focus().undo().run()"
-            >
-            </q-btn>
-          </template>
-        </v-tooltip>
+        <q-btn
+          v-bind="props"
+          icon="mdi-undo"
+          :disabled="!editor.can().chain().focus().undo().run()"
+          @click="editor.chain().focus().undo().run()"
+        >
+          <q-tooltip>撤销</q-tooltip>
+        </q-btn>
 
-        <v-tooltip location="top" text="重做">
-          <template v-slot:activator="{ props }">
-            <q-btn
-              v-bind="props"
-              icon="mdi-redo"
-              :disabled="!editor.can().chain().focus().redo().run()"
-              @click="editor.chain().focus().redo().run()"
-            >
-            </q-btn>
-          </template>
-        </v-tooltip>
+        <q-btn
+          v-bind="props"
+          icon="mdi-redo"
+          :disabled="!editor.can().chain().focus().redo().run()"
+          @click="editor.chain().focus().redo().run()"
+        >
+          <q-tooltip>重做</q-tooltip>
+        </q-btn>
       </q-toolbar>
     </div>
     <EditorContent :editor="editor"></EditorContent>

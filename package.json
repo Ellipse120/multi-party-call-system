@@ -9,9 +9,7 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@mdi/font": "^7.2.96",
     "@nuxt/devtools": "latest",
-    "@nuxt/image": "^1.0.0-rc.1",
     "@types/node": "^18",
     "@unocss/nuxt": "^0.53.1",
     "@unocss/reset": "^0.53.1",
@@ -23,8 +21,7 @@
     "nuxt-quasar-ui": "^2.0.2",
     "primeicons": "^6.0.1",
     "primevue": "^3.29.2",
-    "universal-cookie": "^4.0.4",
-    "vuetify": "^3.3.3"
+    "universal-cookie": "^4.0.4"
   },
   "dependencies": {
     "@quasar/extras": "^1.16.4",
@@ -35,7 +32,6 @@
     "@vee-validate/nuxt": "^4.9.6",
     "defu": "^6.1.2",
     "lodash": "^4.17.21",
-    "quasar": "^2.12.0",
-    "vite-plugin-vuetify": "^1.0.2"
+    "quasar": "^2.12.0"
   }
 }
