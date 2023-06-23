@@ -31,7 +31,7 @@ const doLogin = () => {
       <q-form>
         <q-input v-model="userName" class="my-4" label="用户名">
           <template v-slot:prepend>
-            <q-icon name="person" />
+            <q-icon name="mdi-account" />
           </template>
         </q-input>
 
@@ -42,11 +42,11 @@ const doLogin = () => {
           hint="密码至少8位, 需要包含数字、大写字母、小写字母、特殊符号"
         >
           <template v-slot:prepend>
-            <q-icon name="key" />
+            <q-icon name="mdi-key" />
           </template>
           <template v-slot:append>
             <q-icon
-              :name="isPwd ? 'visibility_off' : 'visibility'"
+              :name="isPwd ? 'mdi-eye-off' : 'mdi-eye'"
               class="cursor-pointer"
               @click="toggleIsPwd()"
             />
