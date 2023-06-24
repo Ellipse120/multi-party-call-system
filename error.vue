@@ -22,7 +22,7 @@ function handleError() {
       </div>
       <div text-xl op50>您正在访问不存在的页面，请检查URL是否正确</div>
       <pre v-if="isDev">{{ error }}</pre>
-      <Button label="返回" @click="handleError()"> </Button>
+      <q-btn color="primary" label="返回" @click="handleError()"> </q-btn>
     </div>
   </NuxtLayout>
 </template>

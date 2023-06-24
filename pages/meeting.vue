@@ -10,8 +10,10 @@ const currentYear = ref(useDateFormat(new Date(), "YYYY"));
 </script>
 
 <template>
-  <div>
-    index , {{ currentYear }}
-    <div>{{ token }}</div>
-  </div>
+  <ClientOnly>
+    <div>
+      index , {{ currentYear }}
+      <div>{{ token }}</div>
+    </div>
+  </ClientOnly>
 </template>

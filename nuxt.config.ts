@@ -17,6 +17,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     app: {
       serverUrl: "",
+      anyRtcAppId: "b3d40bc2dbd808f1edb6b36c0519022b",
     },
   },
 
