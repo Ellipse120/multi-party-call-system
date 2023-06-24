@@ -2,6 +2,8 @@
 import { Editor, EditorContent } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
+import { Color } from "@tiptap/extension-color";
+import TextStyle from "@tiptap/extension-text-style";
 
 const props = defineProps({
   modelValue: {
@@ -36,14 +38,14 @@ watch(
 onMounted(() => {
   editor.value = new Editor({
     content: props.modelValue,
-    extensions: [StarterKit, Image],
+    extensions: [StarterKit, Image, TextStyle, Color],
     editorProps: {
       attributes: {
         class:
           "border m-4  max-w-none  prose  prose prose-coolgray dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl focus:outline-none",
       },
     },
-    injectCSS: false,
+    injectCSS: true,
     onUpdate: () => {
       // HTML
       emit("update:modelValue", editor.value.getHTML());
@@ -63,6 +65,11 @@ onBeforeUnmount(() => {
   <div>
     <div v-if="editor">
       <q-toolbar class="flex flex-wrap bg-gray-200">
+        <input
+          type="color"
+          @input="editor.chain().focus().setColor($event.target.value).run()"
+          :value="editor.getAttributes('textStyle').color"
+        />
         <q-btn
           @click="editor.chain().focus().toggleBold().run()"
           icon="mdi-format-bold"

@@ -10,6 +10,8 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "@tiptap/extension-color": "^2.0.3",
+    "@tiptap/extension-text-style": "^2.0.3",
     "@types/node": "^18",
     "@unocss/nuxt": "^0.53.1",
     "@unocss/reset": "^0.53.1",
