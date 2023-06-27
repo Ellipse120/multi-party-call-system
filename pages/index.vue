@@ -8,7 +8,7 @@ definePageMeta({
 const { token } = useAuth();
 
 const currentYear = ref(useDateFormat(new Date(), "YYYY"));
-
+const [drawerLeft, toggleDrawer] = useToggle();
 const { data } = useRequest("/api/mock");
 
 const editor = ref("some text");
@@ -31,7 +31,23 @@ const color = (cmd, name) => {
     index , {{ currentYear }}
     <div>{{ token }}</div>
 
+    <q-drawer
+      v-model="drawerLeft"
+      show-if-above
+      :width="200"
+      :breakpoint="700"
+      elevated
+      class="bg-primary text-white"
+    >
+      <q-scroll-area class="fit">
+        <div class="q-pa-sm">
+          <div v-for="n in 50" :key="n">Drawer {{ n }} / 50</div>
+        </div>
+      </q-scroll-area>
+    </q-drawer>
+
     <q-btn color="primary" @click="navigateTo('/meeting')">Meeting</q-btn>
+    <q-btn color="primary" @click="toggleDrawer()">Drawer</q-btn>
 
     <div class="text-center text-white text-3xl bg-indigo-500 rounded my-4 p-8">
       {{ data }}
