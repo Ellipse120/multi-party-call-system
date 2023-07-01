@@ -30,6 +30,10 @@ export default defineNuxtConfig({
   quasar: {
     lang: "zh-CN",
     iconSet: "mdi-v7",
+    plugins: ["Loading", "LoadingBar"],
+    config: {
+      loading: {},
+    },
   },
 
   veeValidate: {

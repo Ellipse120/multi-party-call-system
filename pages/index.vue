@@ -8,9 +8,7 @@ definePageMeta({
 const { token } = useAuth();
 
 const currentYear = ref(useDateFormat(new Date(), "YYYY"));
-const [drawerLeft, toggleDrawer] = useToggle();
 const { data } = useRequest("/api/mock");
-
 const editor = ref("some text");
 const editorRef = ref(null);
 const tokenRef = ref(null);
@@ -24,131 +22,227 @@ const color = (cmd, name) => {
   edit.runCmd(cmd, name);
   edit.focus();
 };
+
+const selected = ref([]);
+const ticked = ref(["Good recipe2"]);
+const expanded = ref([]);
+const simple = [
+  {
+    label: "Satisfied customers",
+    children: [
+      {
+        label: "Good food",
+        children: [{ label: "Quality ingredients" }, { label: "Good recipe" }],
+      },
+      {
+        label: "Good service (disabled node)",
+        children: [
+          { label: "Prompt attention" },
+          { label: "Professional waiter" },
+        ],
+      },
+      {
+        label: "Pleasant surroundings",
+        children: [
+          { label: "Happy atmosphere" },
+          { label: "Good table presentation" },
+          { label: "Pleasing decor" },
+        ],
+      },
+    ],
+  },
+  {
+    label: "Satisfied customers2",
+    children: [
+      {
+        label: "Good food2",
+        children: [
+          { label: "Quality ingredients2" },
+          { label: "Good recipe2" },
+        ],
+      },
+      {
+        label: "Good service (disabled node)2",
+        children: [
+          { label: "Prompt attention2" },
+          { label: "Professional waiter2" },
+        ],
+      },
+      {
+        label: "Pleasant surroundings2",
+        children: [
+          { label: "Happy atmosphere2" },
+          { label: "Good table presentation2" },
+          { label: "Pleasing decor2" },
+        ],
+      },
+    ],
+  },
+];
+
+const handleRemove = (item) => {
+  const index = ticked.value.findIndex((t) => t === item);
+  ticked.value?.splice(index, 1);
+};
+const chipSelected = ref();
 </script>
 
 <template>
-  <div>
+  <div class="p-4">
     index , {{ currentYear }}
-    <div>{{ token }}</div>
-
-    <q-drawer
-      v-model="drawerLeft"
-      show-if-above
-      :width="200"
-      :breakpoint="700"
-      elevated
-      class="bg-primary text-white"
-    >
-      <q-scroll-area class="fit">
-        <div class="q-pa-sm">
-          <div v-for="n in 50" :key="n">Drawer {{ n }} / 50</div>
-        </div>
-      </q-scroll-area>
-    </q-drawer>
+    <div>{{ token }} = {{ chipSelected }}</div>
 
     <q-btn color="primary" @click="navigateTo('/meeting')">Meeting</q-btn>
-    <q-btn color="primary" @click="toggleDrawer()">Drawer</q-btn>
 
     <div class="text-center text-white text-3xl bg-indigo-500 rounded my-4 p-8">
       {{ data }}
     </div>
 
-    <RichTextEditor />
+    <div>
+      selected: {{ selected }} ticked: {{ ticked }} expanded: {{ expanded }}
+    </div>
 
-    <q-editor
-      v-model="editor"
-      ref="editorRef"
-      :toolbar="[
-        ['bold', 'italic', 'strike', 'underline'],
-        ['token'],
-        ['removeFormat'],
-      ]"
-    >
-      <template v-slot:token>
-        <q-btn-dropdown
-          dense
-          no-caps
-          ref="tokenRef"
-          no-wrap
-          unelevated
-          color="white"
-          text-color="primary"
-          label="Text Color"
-          size="sm"
-        >
-          <q-list dense>
-            <q-item
-              tag="label"
-              clickable
-              @click="color('backColor', highlight)"
+    <q-field label="TreeSelect" stack-label>
+      <template v-slot:control>
+        <div class="text-red-500 flex items-center gap-2" tabindex="0">
+          <q-btn icon="mdi-tree" class="cursor-pointer">
+            <q-popup-proxy fit anchor="bottom left" color="red">
+              <q-tree
+                class=""
+                :nodes="simple"
+                node-key="label"
+                tick-strategy="leaf"
+                v-model:selected="selected"
+                v-model:ticked="ticked"
+                v-model:expanded="expanded"
+              />
+            </q-popup-proxy>
+          </q-btn>
+          <div>
+            <q-chip
+              v-for="t in ticked"
+              removable
+              color="primary"
+              text-color="white"
+              @remove="handleRemove(t)"
             >
-              <q-item-section side>
-                <q-icon name="mdi-format-color-highlight" />
-              </q-item-section>
-              <q-item-section>
-                <q-color
-                  v-model="highlight"
-                  default-view="palette"
-                  no-header
-                  no-footer
-                  :palette="[
-                    '#ffccccaa',
-                    '#ffe6ccaa',
-                    '#ffffccaa',
-                    '#ccffccaa',
-                    '#ccffe6aa',
-                    '#ccffffaa',
-                    '#cce6ffaa',
-                    '#ccccffaa',
-                    '#e6ccffaa',
-                    '#ffccffaa',
-                    '#ff0000aa',
-                    '#ff8000aa',
-                    '#ffff00aa',
-                    '#00ff00aa',
-                    '#00ff80aa',
-                    '#00ffffaa',
-                    '#0080ffaa',
-                    '#0000ffaa',
-                    '#8000ffaa',
-                    '#ff00ffaa',
-                  ]"
-                  class="my-picker"
-                />
-              </q-item-section>
-            </q-item>
-            <q-item
-              tag="label"
-              clickable
-              @click="color('foreColor', foreColor)"
-            >
-              <q-item-section side>
-                <q-icon name="mdi-format-paint" />
-              </q-item-section>
-              <q-item-section>
-                <q-color
-                  v-model="foreColor"
-                  no-header
-                  no-footer
-                  default-view="palette"
-                  :palette="[
-                    '#ff0000',
-                    '#ff8000',
-                    '#ffff00',
-                    '#00ff00',
-                    '#00ff80',
-                    '#00ffff',
-                    '#0080ff',
-                    '#0000ff',
-                    '#8000ff',
-                    '#ff00ff',
-                  ]"
-                />
-              </q-item-section>
-            </q-item>
-          </q-list>
-        </q-btn-dropdown>
+              {{ t }}
+            </q-chip>
+          </div>
+        </div>
       </template>
-    </q-editor>
+    </q-field>
+
+    <div>
+      <q-editor
+        v-model="editor"
+        ref="editorRef"
+        :toolbar="[
+          ['bold', 'italic', 'strike', 'underline'],
+          ['token', 'upload'],
+          ['removeFormat'],
+        ]"
+      >
+        <template v-slot:upload>
+          <q-btn
+            icon="mdi-image"
+            flat
+            size="xs"
+            padding="xs"
+            class="cursor-pointer"
+          >
+            <q-popup-proxy fit anchor="bottom left">
+              <q-uploader />
+            </q-popup-proxy>
+          </q-btn>
+        </template>
+
+        <template v-slot:token>
+          <q-btn-dropdown
+            dense
+            no-caps
+            ref="tokenRef"
+            no-wrap
+            unelevated
+            color="white"
+            text-color="primary"
+            label="Text Color"
+            size="sm"
+          >
+            <q-list dense>
+              <q-item
+                tag="label"
+                clickable
+                @click="color('backColor', highlight)"
+              >
+                <q-item-section side>
+                  <q-icon name="mdi-format-color-highlight" />
+                </q-item-section>
+                <q-item-section>
+                  <q-color
+                    v-model="highlight"
+                    default-view="palette"
+                    no-header
+                    no-footer
+                    :palette="[
+                      '#ffccccaa',
+                      '#ffe6ccaa',
+                      '#ffffccaa',
+                      '#ccffccaa',
+                      '#ccffe6aa',
+                      '#ccffffaa',
+                      '#cce6ffaa',
+                      '#ccccffaa',
+                      '#e6ccffaa',
+                      '#ffccffaa',
+                      '#ff0000aa',
+                      '#ff8000aa',
+                      '#ffff00aa',
+                      '#00ff00aa',
+                      '#00ff80aa',
+                      '#00ffffaa',
+                      '#0080ffaa',
+                      '#0000ffaa',
+                      '#8000ffaa',
+                      '#ff00ffaa',
+                    ]"
+                    class="my-picker"
+                  />
+                </q-item-section>
+              </q-item>
+              <q-item
+                tag="label"
+                clickable
+                @click="color('foreColor', foreColor)"
+              >
+                <q-item-section side>
+                  <q-icon name="mdi-format-paint" />
+                </q-item-section>
+                <q-item-section>
+                  <q-color
+                    v-model="foreColor"
+                    no-header
+                    no-footer
+                    default-view="palette"
+                    :palette="[
+                      '#ff0000',
+                      '#ff8000',
+                      '#ffff00',
+                      '#00ff00',
+                      '#00ff80',
+                      '#00ffff',
+                      '#0080ff',
+                      '#0000ff',
+                      '#8000ff',
+                      '#ff00ff',
+                    ]"
+                  />
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+        </template>
+      </q-editor>
+    </div>
   </div>
 </template>
