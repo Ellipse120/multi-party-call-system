@@ -21,6 +21,7 @@
     "voorjaar.windicss-intellisense",
     "christian-kohler.path-intellisense",
     "christian-kohler.npm-intellisense",
-    "tyriar.lorem-ipsum"
+    "tyriar.lorem-ipsum",
+    "esbenp.prettier-vscode"
   ]
 }
