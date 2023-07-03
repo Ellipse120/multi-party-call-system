@@ -3,6 +3,7 @@ import logoUrl from "@/assets/imgs/logo.png";
 
 const logo = ref(logoUrl);
 const corporation = useAppConfig().corporation;
+const name = useAppConfig().name;
 const { doLogout } = useAuth();
 </script>
 
@@ -14,7 +15,7 @@ const { doLogout } = useAuth();
           <img :src="logo" />
         </q-avatar>
 
-        <q-toolbar-title>{{ corporation }}</q-toolbar-title>
+        <q-toolbar-title>{{ name }}</q-toolbar-title>
 
         <q-btn icon="mdi-minus" flat></q-btn>
 

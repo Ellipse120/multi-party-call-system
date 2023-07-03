@@ -6,8 +6,8 @@ const [isPwd, toggleIsPwd] = useToggle();
 const corporation = useAppConfig().corporation;
 const appName = useAppConfig().name;
 
-const userName = ref(null);
-const passwd = ref(null);
+const userName = ref('cyl2');
+const passwd = ref('Asd@123456');
 const { ruleRequired } = useFormRules();
 
 const { setToken } = useAuth();
@@ -17,8 +17,18 @@ const doLogin = async () => {
 
   if (!valid) return;
 
-  setToken("xxxxx");
-  navigateTo("/");
+  const { data } = await useRequest("http://192.168.10.6:13468/user/login", {
+      method: 'post',
+      params: {
+          username: userName.value,
+          password: passwd.value
+      }
+  });
+  if(data?.value?.data) {
+      setToken(data?.value?.data);
+      navigateTo("/");
+  }
+
   console.log({
     userName: userName.value,
     passwd: passwd.value,
