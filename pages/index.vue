@@ -85,6 +85,13 @@ const handleRemove = (item) => {
   ticked.value?.splice(index, 1);
 };
 const chipSelected = ref();
+
+const model = ref();
+const title = ref();
+const options = ref([
+  { key: 1, value: "选项1" },
+  { key: 2, value: "选项2" },
+]);
 </script>
 
 <template>
@@ -96,6 +103,16 @@ const chipSelected = ref();
 
     <div class="text-center text-white text-3xl bg-indigo-500 rounded my-4 p-8">
       {{ data }}
+    </div>
+
+    <div>
+      {{ model }} | {{ title }}
+      <QSelectorWrapper
+        v-model="model"
+        v-model:title="title"
+        class="mb-6"
+        :options="options"
+      />
     </div>
 
     <div>
