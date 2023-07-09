@@ -1,19 +1,20 @@
 <script setup>
 definePageMeta({
-  name: "首页",
-  layout: "home",
-  middleware: ["auth"],
+  name: '首页',
+  layout: 'home',
+  middleware: ['auth'],
 });
 
 const { token } = useAuth();
+const userInfo = useState('user-info');
 
-const currentYear = ref(useDateFormat(new Date(), "YYYY"));
-const { data } = useRequest("/api/mock");
-const editor = ref("some text");
+const currentYear = ref(useDateFormat(new Date(), 'YYYY'));
+const { data } = useRequest('/api/mock');
+const editor = ref('some text');
 const editorRef = ref(null);
 const tokenRef = ref(null);
-const highlight = ref("#000000");
-const foreColor = ref("#000000");
+const highlight = ref('#000000');
+const foreColor = ref('#000000');
 
 const color = (cmd, name) => {
   const edit = editorRef.value;
@@ -23,57 +24,68 @@ const color = (cmd, name) => {
   edit.focus();
 };
 
+const toggleRandomId = () => {
+  userInfo.value.id = Math.ceil(Math.random() * 10000000);
+};
+
+const generateLuckyNums = () => {
+  const array = new Uint32Array(10);
+  self.crypto.getRandomValues(array);
+
+  return array;
+};
+
 const selected = ref([]);
-const ticked = ref(["Good recipe2"]);
+const ticked = ref(['Good recipe2']);
 const expanded = ref([]);
 const simple = [
   {
-    label: "Satisfied customers",
+    label: 'Satisfied customers',
     children: [
       {
-        label: "Good food",
-        children: [{ label: "Quality ingredients" }, { label: "Good recipe" }],
+        label: 'Good food',
+        children: [{ label: 'Quality ingredients' }, { label: 'Good recipe' }],
       },
       {
-        label: "Good service (disabled node)",
+        label: 'Good service (disabled node)',
         children: [
-          { label: "Prompt attention" },
-          { label: "Professional waiter" },
+          { label: 'Prompt attention' },
+          { label: 'Professional waiter' },
         ],
       },
       {
-        label: "Pleasant surroundings",
+        label: 'Pleasant surroundings',
         children: [
-          { label: "Happy atmosphere" },
-          { label: "Good table presentation" },
-          { label: "Pleasing decor" },
+          { label: 'Happy atmosphere' },
+          { label: 'Good table presentation' },
+          { label: 'Pleasing decor' },
         ],
       },
     ],
   },
   {
-    label: "Satisfied customers2",
+    label: 'Satisfied customers2',
     children: [
       {
-        label: "Good food2",
+        label: 'Good food2',
         children: [
-          { label: "Quality ingredients2" },
-          { label: "Good recipe2" },
+          { label: 'Quality ingredients2' },
+          { label: 'Good recipe2' },
         ],
       },
       {
-        label: "Good service (disabled node)2",
+        label: 'Good service (disabled node)2',
         children: [
-          { label: "Prompt attention2" },
-          { label: "Professional waiter2" },
+          { label: 'Prompt attention2' },
+          { label: 'Professional waiter2' },
         ],
       },
       {
-        label: "Pleasant surroundings2",
+        label: 'Pleasant surroundings2',
         children: [
-          { label: "Happy atmosphere2" },
-          { label: "Good table presentation2" },
-          { label: "Pleasing decor2" },
+          { label: 'Happy atmosphere2' },
+          { label: 'Good table presentation2' },
+          { label: 'Pleasing decor2' },
         ],
       },
     ],
@@ -89,8 +101,8 @@ const chipSelected = ref();
 const model = ref();
 const title = ref();
 const options = ref([
-  { key: 1, value: "选项1" },
-  { key: 2, value: "选项2" },
+  { key: 1, value: '选项1' },
+  { key: 2, value: '选项2' },
 ]);
 </script>
 
@@ -99,7 +111,25 @@ const options = ref([
     index , {{ currentYear }}
     <div>{{ token }} = {{ chipSelected }}</div>
 
+    <div class="bg-pink-400 text-white p-4 my-2">userInfo: {{ userInfo }}</div>
     <q-btn color="primary" @click="navigateTo('/meeting')">Meeting</q-btn>
+
+    <q-btn color="red" class="mx-4" @click="toggleRandomId()"
+      >Random UserInfo Id</q-btn
+    >
+
+    <div class="my-4">
+      <q-list bordered separator>
+        <q-item
+          clickable
+          v-ripple
+          v-for="item in generateLuckyNums()"
+          :key="item"
+        >
+          <q-item-section>{{ item }}</q-item-section>
+        </q-item>
+      </q-list>
+    </div>
 
     <div class="text-center text-white text-3xl bg-indigo-500 rounded my-4 p-8">
       {{ data }}
@@ -110,7 +140,7 @@ const options = ref([
       <QSelectorWrapper
         v-model="model"
         v-model:title="title"
-        class="mb-6"
+        class="mb-6 w-100"
         :options="options"
       />
     </div>

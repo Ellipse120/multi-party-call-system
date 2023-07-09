@@ -1,5 +1,5 @@
 <script setup>
-import logoUrl from "@/assets/imgs/logo.png";
+import logoUrl from '@/assets/imgs/logo.png';
 
 const formRef = ref(null);
 const [isPwd, toggleIsPwd] = useToggle();
@@ -10,19 +10,21 @@ const userName = ref(null);
 const passwd = ref(null);
 const { ruleRequired } = useFormRules();
 
-const { setToken } = useAuth();
+const { setToken, setUserInfo } = useAuth();
 
 const doLogin = async () => {
   const valid = await formRef.value.validate();
 
   if (!valid) return;
 
-  setToken("xxxxx");
-  navigateTo("/");
-  console.log({
-    userName: userName.value,
-    passwd: passwd.value,
-  });
+  const { data } = await useRequest('api/login');
+  console.log(data.value.data);
+
+  const res = data.value.data;
+
+  setUserInfo(res);
+  setToken(res.token);
+  navigateTo('/');
 };
 </script>
 
